@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZERO COMPANY | OMB1 STUDIO</title>
+    <style>
+        /* 🎨 Safed + Grain Texture + Low Sky Blue Base Theme */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #1e293b;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* 📁 Sidebar with Custom SVG Icons & Navigation */
+        .sidebar {
+            width: 260px;
+            background: #ffffff;
+            border-right: 2px solid #e2e8f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar h3 { color: #1e3a8a; margin-top: 0; font-size: 16px; letter-spacing: 1px;}
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-item:hover { background: #eef5ff; border-color: #3b82f6; color: #1d4ed8; }
+        .nav-item svg { margin-right: 12px; }
+
+        /* 💻 Main Workspace Layout */
+        .workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+        .header h2 { margin: 0; color: #1e3a8a; }
+        .header p { margin: 4px 0 20px 0; color: #64748b; font-size: 13px; }
+
+        /* 💬 Dialogue Chat Stream Display */
+        .chat-stream {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .msg { margin-bottom: 15px; padding: 10px 14px; border-radius: 8px; max-width: 80%; }
+        .user-msg { background: #e0f2fe; align-self: flex-end; margin-left: auto; border-left: 4px solid #3b82f6; }
+        .omb1-msg { background: #ffffff; border-left: 4px solid #10b981; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+
+        /* 🎛️ Bottom Control & Dynamic Input Area */
+        .input-wrapper {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        /* ➕ Multi-Modal Media Feed Upload Button */
+        .upload-btn {
+            background: #ffffff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-btn:hover { border-color: #ff007f; background: #fff5f9; }
+
+        /* ✨ Google AI Studio Box with Rotating Neon Gradient Border (Green-Yellow-Pink) */
+        .glow-border-box {
+            flex: 1;
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(90deg, #00ffcc, #ffeb3b, #ff007f, #00ffcc);
+            background-size: 300% 300%;
+            animation: spin 4s linear infinite;
+            border-radius: 12px;
+        }
+        @keyframes spin {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ✏️ Auto-stretching Input Text Area */
+        .glow-border-box textarea {
+            width: 100%;
+            min-height: 48px;
+            max-height: 200px;
+            background: #ffffff;
+            border: none;
+            border-radius: 9px;
+            padding: 12px;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 15px;
+            color: #1e293b;
+            resize: none;
+            font-family: inherit;
+            display: block;
+        }
+
+        /* 🚀 Action Buttons */
+        .action-btn {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            height: 54px;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR WITH CUSTOM SVG NAVIGATIONS -->
+    <div class="sidebar">
+        <h3>📁 PROJECTS & HISTORY</h3>
+        <div class="nav-item">
+            <!-- Folder SVG Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            Mool_Sutra_Project
+        </div>
+        <div class="nav-item">
+            <!-- Lock/Auth SVG Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            ZERO Auth: Local Secured
+        </div>
+    </div>
+
+    <!-- MAIN STUDIO WORKSPACE -->
+    <div class="workspace">
+        <div class="header">
+            <h2>🕉️ ZERO COMPANY | OMB1 STUDIO</h2>
+            <p>⚡ Status: Zero Server Architecture Active | Local Engine Running via Infinity Sequence Mapping</p>
+        </div>
+
+        <!-- Chat Stream Display Window -->
+        <div class="chat-stream" id="chatStream">
+            <div class="msg omb1-msg">
+                <b>🤖 OMB1 System:</b> प्रणिपात! ZERO-OMB1 Engine Active है। आप किसी भी भाषा में बातचीत कर सकते हैं या text/file डालकर इसे instantly train कर सकते हैं।
+            </div>
+        </div>
+
+        <!-- Inputs Footer Container -->
+        <div class="input-wrapper">
+            <!-- Plus media upload simulated via custom dashed box -->
+            <div class="upload-btn" onclick="alert('Multi-modal Data Ingested into Background Infinity Grid!')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff007f" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </div>
+
+            <!-- Google Studio Style Glowing Border Wrap -->
+            <div class="glow-border-box">
+                <!-- Textarea expands smoothly based on input script -->
+                <textarea id="userInput" placeholder="Kuch bhi likhein ya bada data paste karke train karein..." rows="1" oninput="autoStretch(this)"></textarea>
+            </div>
+
+            <button class="action-btn" onclick="executeDialogue()">🚀 Send</button>
+        </div>
+    </div>
+
+    <!-- CLIENT SIDE LIGHTWEIGHT AI ENGINE SIMULATION -->
+    <script>
+        // Smoothly expand/stretch the text area on long inputs
+        function autoStretch(element) {
+            element.style.height = "auto";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+
+        // Infinity math logic function simulator 
+        function executeDialogue() {
+            const inputField = document.getElementById("userInput");
+            const chatStream = document.getElementById("chatStream");
+            const text = inputField.value.trim();
+
+            if (!text) return;
+
+            // Append User Chat Node
+            chatStream.innerHTML += `<div class='msg user-msg'><b>👤 User:</b> ${text}</div>`;
+            inputField.value = "";
+            inputField.style.height = "48px"; // Reset height
+
+            // Calculate immediate local fake token hash pointers (Our Infinity Logic Concept)
+            let mathPointer = ((text.length * 3.1415) % 1).toFixed(6);
+
+            // Simulation of Ultra-Fast Evolution logic client-side response
+            setTimeout(() => {
+                let systemReply = `[OMB1 Inference Node Pointer: ${mathPointer}] <br> आपका डेटा बिना किसी क्लाउड डेटा सेंटर के, डायरेक्ट लोकल मेमोरी ग्रिड में 'Fast-Catch' हो गया है। Ultra-fast evolution state updated.`;
+                chatStream.innerHTML += `<div class='msg omb1-msg'><b>🤖 OMB1 Engine:</b> ${systemReply}</div>`;
+                chatStream.scrollTop = chatStream.scrollHeight; // Auto-scroll to bottom
+            }, 400);
+        }
+    </script>
+</body>
+</html>
