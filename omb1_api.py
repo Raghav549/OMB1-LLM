@@ -1,15 +1,16 @@
 # =====================================================================
 # COMPANY: ZERO | MODEL: OMB1 (OM BRAHMANANDA 1)
 # MODULE: COMPACT CORE API GATEWAY FOR DEPLOYMENT (RENDER / VERCEL)
+# SPECIFICATION: RUNS WITH 100% FREE OPEN-SOURCE LINGUISTIC ENGINE
 # COST: ZERO (Native JSON stream handling, no external heavy libraries)
 # =====================================================================
 
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from omb1_brain import OMB1UltimateBrain
+from omb1_brain import OMB1UltimateHybridBrain
 
-# Active runtime layer setup
-omb1_instance = OMB1UltimateBrain()
+# Active runtime layer setup with Open-Source Core
+omb1_instance = OMB1UltimateHybridBrain()
 
 # Base template seeding at startup
 omb1_instance.tatkal_grahanam("Mool_Sutra", "सत्यमेव जयते नानृतं सत्येन पन्था विततो देवयानः।")
@@ -50,10 +51,10 @@ class OMB1APIGateway(BaseHTTPRequestHandler):
                     response_payload = {
                         "status": "Success",
                         "pointer": ptr,
-                        "message": "Data instantly caught and mapped."
+                        "message": "Data instantly caught and mapped into Open-Source Core."
                     }
                 else:
-                    # Execute instant reasoning stream
+                    # Execute instant reasoning stream with multilingual backbone
                     response_payload = omb1_instance.smooth_reply_stream(user_prompt)
                 
                 self._set_headers(200)
