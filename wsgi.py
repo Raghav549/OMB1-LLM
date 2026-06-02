@@ -1,7 +1,11 @@
-from omb1_api import run_production_api
+from omb1_api import run_server
 
-# Render/Vercel execution binding port fallback hook
+# Render environment port hook
+import os
+port = int(os.environ.get("PORT", 8080))
+
+# Ye line Gunicorn ke liye zaroori hai
+app = run_server
+
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8080))
     run_server(port=port)
