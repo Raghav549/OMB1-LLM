@@ -1,2 +1,2 @@
-gunicorn==26.0.0
-Pillow==10.3.0
+gunicorn
+Pillow
