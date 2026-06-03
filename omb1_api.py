@@ -1,12 +1,8 @@
-import json
+import json, os
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from omb1_brain import OMB1UltimateHybridBrain
 
-# Instance initiate kiya
-omb1_instance = OMB1UltimateHybridBrain()
-
-# Gunicorn ke liye 'app' variable export kar rahe hain
-app = omb1_instance 
+brain = OMB1UltimateHybridBrain()
 
 class Gateway(BaseHTTPRequestHandler):
     def _send(self, data):
@@ -21,12 +17,11 @@ class Gateway(BaseHTTPRequestHandler):
         payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
         
         if self.path == '/api/chat':
-            content, dtype = omb1_instance.query_brain(payload.get("prompt", ""))
+            content, dtype = brain.smooth_reply_stream(payload.get("prompt", ""))
             self._send({"reply": content, "type": dtype})
-            
         elif self.path == '/api/train':
             for item in payload.get("dataset", []):
-                omb1_instance.learn(item['input'], item['data'], item.get('type', 'text'))
+                brain.learn(item['input'], item['data'], item.get('type', 'text'))
             self._send({"status": "Success"})
 
     def do_OPTIONS(self):
@@ -36,4 +31,5 @@ class Gateway(BaseHTTPRequestHandler):
         self.end_headers()
 
 if __name__ == "__main__":
-    HTTPServer(('', 8080), Gateway).serve_forever()
+    port = int(os.environ.get("PORT", 8080))
+    HTTPServer(('', port), Gateway).serve_forever()
