@@ -1,35 +1,29 @@
-import json, os
-from http.server import BaseHTTPRequestHandler, HTTPServer
-from omb1_brain import OMB1UltimateHybridBrain
+import math, sqlite3, random
 
-brain = OMB1UltimateHybridBrain()
+class OMB1UltimateHybridBrain:
+    def __init__(self):
+        self.db_path = "omb1_final_core.db"
+        conn = sqlite3.connect(self.db_path)
+        conn.execute('CREATE TABLE IF NOT EXISTS matrix_space (hash REAL PRIMARY KEY, content TEXT, dtype TEXT)')
+        conn.commit()
+        conn.close()
 
-class Gateway(BaseHTTPRequestHandler):
-    def _send(self, data):
-        self.send_response(200)
-        self.send_header('Content-Type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        self.wfile.write(json.dumps(data).encode())
+    def _get_hash(self, text):
+        return round(abs(sum(math.sin(ord(c)) for c in text.lower().strip()) * math.pi) % 1, 8)
 
-    def do_POST(self):
-        content_length = int(self.headers.get('Content-Length', 0))
-        payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
+    def learn(self, input_text, output_data, dtype="text"):
+        conn = sqlite3.connect(self.db_path)
+        h = self._get_hash(input_text)
+        conn.execute("INSERT OR REPLACE INTO matrix_space VALUES (?,?,?)", (h, output_data, dtype))
+        conn.commit()
+        conn.close()
+
+    def smooth_reply_stream(self, user_input):
+        user_input = user_input.lower().strip()
+        if "naam" in user_input: return ("Mera naam Sky hai, ZERO Company ka model.", "text")
         
-        if self.path == '/api/chat':
-            content, dtype = brain.smooth_reply_stream(payload.get("prompt", ""))
-            self._send({"reply": content, "type": dtype})
-        elif self.path == '/api/train':
-            for item in payload.get("dataset", []):
-                brain.learn(item['input'], item['data'], item.get('type', 'text'))
-            self._send({"status": "Success"})
-
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    HTTPServer(('', port), Gateway).serve_forever()
+        conn = sqlite3.connect(self.db_path)
+        h = self._get_hash(user_input)
+        res = conn.execute("SELECT content, dtype FROM matrix_space WHERE hash = ?", (h,)).fetchone()
+        conn.close()
+        return res if res else ("Data pack mein yeh info nahi hai. Train kariye.", "text")
