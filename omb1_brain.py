@@ -1,5 +1,4 @@
-import math, sqlite3, random, time
-from PIL import Image, ImageDraw, ImageFilter
+import math, sqlite3, random
 
 class OMB1UltimateHybridBrain:
     def __init__(self):
@@ -19,21 +18,12 @@ class OMB1UltimateHybridBrain:
         conn.commit()
         conn.close()
 
-    def generate_art(self):
-        img = Image.new("RGB", (200, 200), (0,0,0))
-        d = ImageDraw.Draw(img)
-        d.rectangle([50,50,150,150], fill=(random.randint(0,255),100,200))
-        img.save("art.png")
-        return "Image generate ho gayi hai: art.png"
-
     def smooth_reply_stream(self, user_input):
-        # Identity Logic
-        if "naam" in user_input.lower(): return ("Mera naam Sky hai, ZERO Company ka model.", "text")
-        if "draw" in user_input.lower(): return (self.generate_art(), "image")
+        user_input = user_input.lower().strip()
+        if "naam" in user_input: return ("Mera naam Sky hai, ZERO Company ka model.", "text")
         
-        # Database Logic
         conn = sqlite3.connect(self.db_path)
         h = self._get_hash(user_input)
         res = conn.execute("SELECT content, dtype FROM matrix_space WHERE hash = ?", (h,)).fetchone()
         conn.close()
-        return res if res else ("Data pack mein yeh info nahi hai.", "text")
+        return res if res else ("Data pack mein yeh info nahi hai. Train kariye.", "text")
